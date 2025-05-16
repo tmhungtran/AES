@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">Đã xảy ra lỗi</h3>
+            </div>
+            <div class="card-body text-center">
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                    <p class="fs-4 mt-3">{{ message }}</p>
+                </div>
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Quay lại trang chủ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

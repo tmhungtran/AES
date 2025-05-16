@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">{{ operation }} thành công</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <p><strong>File gốc:</strong> {{ original_file }}</p>
+                    <p><strong>File kết quả:</strong> {{ result_file }}</p>
+                </div>
+                
+                <div class="mb-4">
+                    <h5>Nội dung kết quả:</h5>
+                    <div class="p-3 bg-light rounded border preview-box">
+                        <pre>{{ result_content }}</pre>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-3">
+                    <a href="{{ url_for('download', filename=result_file) }}" class="btn btn-success btn-lg">
+                        <i class="bi bi-download"></i> Tải file kết quả
+                    </a>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-arrow-repeat"></i> Thao tác khác
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

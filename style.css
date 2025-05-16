@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.preview-box {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 0;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+.btn-group .btn {
+    border-radius: 8px !important;
+}

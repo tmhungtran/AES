@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Mã hóa/Giải mã AES</h3>
+            </div>
+            <div class="card-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" enctype="multipart/form-data" id="aesForm">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Chọn file:</label>
+                        <input class="form-control" type="file" id="file" name="file" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="key_size" class="form-label">Độ dài khóa AES:</label>
+                        <select class="form-select" id="key_size" name="key_size" required>
+                            <option value="128">AES-128 (khóa 16 byte)</option>
+                            <option value="192">AES-192 (khóa 24 byte)</option>
+                            <option value="256">AES-256 (khóa 32 byte)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="key" class="form-label">Nhập khóa:</label>
+                        <input type="password" class="form-control" id="key" name="key" 
+                               placeholder="Nhập khóa bí mật" required>
+                        <div class="form-text">Khóa có thể là bất kỳ văn bản nào, hệ thống sẽ tự động điều chỉnh độ dài</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Chọn thao tác:</label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="operation" id="encrypt" value="encrypt" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="encrypt">
+                                <i class="bi bi-lock-fill"></i> Mã hóa
+                            </label>
+
+                            <input type="radio" class="btn-check" name="operation" id="decrypt" value="decrypt" autocomplete="off">
+                            <label class="btn btn-outline-success" for="decrypt">
+                                <i class="bi bi-unlock-fill"></i> Giải mã
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="bi bi-gear-fill"></i> Thực hiện
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('key_size').addEventListener('change', function() {
+    const size = this.value;
+    let hint = '';
+    
+    if (size === '128') {
+        hint = 'Khuyến nghị: Nhập ít nhất 8 ký tự đa dạng';
+    } else if (size === '192') {
+        hint = 'Khuyến nghị: Nhập ít nhất 12 ký tự đa dạng';
+    } else {
+        hint = 'Khuyến nghị: Nhập ít nhất 16 ký tự đa dạng';
+    }
+    
+    document.querySelector('.form-text').textContent = hint;
+});
+</script>
+{% endblock %}
